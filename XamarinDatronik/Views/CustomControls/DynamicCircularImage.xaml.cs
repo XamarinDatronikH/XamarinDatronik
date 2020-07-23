@@ -25,18 +25,20 @@ namespace XamarinDatronik.Views
             var width = Width - Padding.HorizontalThickness;
             var height = Height - Padding.VerticalThickness;
 
-            if (width == 0 || height == 0) return;
+            if (width < 1 || height < 1) return;
 
             if (width > height)
             {
                 MainFrame.WidthRequest = height;
                 MainFrame.HorizontalOptions = LayoutOptions.Center;
+                MainFrame.VerticalOptions = LayoutOptions.Fill;
                 MainFrame.CornerRadius = (float)height / 2;
             }
             else if (height > width)
             {
                 MainFrame.HeightRequest = width;
                 MainFrame.VerticalOptions = LayoutOptions.Center;
+                MainFrame.HorizontalOptions = LayoutOptions.Fill;
                 MainFrame.CornerRadius = (float)width / 2;
             }
             else
