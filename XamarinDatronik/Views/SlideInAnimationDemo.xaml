@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="XamarinDatronik.Views.SlideInAnimationDemo"
+    xmlns:views="clr-namespace:XamarinDatronik.Views">
+    <ContentPage.Content>
+        <Grid Padding="30">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <views:DynamicCircularImage
+                x:Name="ImageOne"
+                Grid.Row="0"
+                IconSource="train.jpg" />
+
+            <views:DynamicCircularImage
+                x:Name="ImageTwo"
+                Grid.Row="1"
+                IconSource="nature.jpg" />
+
+            <views:DynamicCircularImage
+                x:Name="ImageThree"
+                Grid.Row="2"
+                IconSource="train.jpg" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

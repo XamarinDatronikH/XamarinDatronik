@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="XamarinDatronik.Views.DynamicCircularImage"
+    SizeChanged="ParentContainerSizeChanged"
+    xmlns:views="clr-namespace:XamarinDatronik.Views">
+    <ContentView.Content>
+        <Frame
+            x:Name="MainFrame"
+            Padding="0"
+            BorderColor="Black"
+            VerticalOptions="Fill"
+            HorizontalOptions="Fill">
+            <Image
+                Source="{Binding IconSource, Source={RelativeSource AncestorType={x:Type views:DynamicCircularImage}}}"
+                Aspect="AspectFill" />
+        </Frame>
+    </ContentView.Content>
+</ContentView>

@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="XamarinDatronik.Views.DynamicCircularImageDemo"
+    xmlns:views="clr-namespace:XamarinDatronik.Views">
+    <ContentPage.Content>
+        <Grid Padding="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="100" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0"
+                  Padding="{Binding Value, Source={x:Reference slider}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                
+                <Frame
+                    Padding="0"
+                    Grid.RowSpan="2"
+                    BorderColor="Black"
+                    HorizontalOptions="Fill" />
+
+                <views:DynamicCircularImage
+                    IconSource="train.jpg"
+                    Padding="20" />
+
+                <StackLayout
+                    Grid.Row="1"
+                    Padding="10">
+                    <Entry
+                        Placeholder="Username" />
+
+                    <Entry
+                        Placeholder="Password" />
+
+                    <Button
+                        Text="Log in"
+                        HorizontalOptions="Center"/>
+                </StackLayout>
+            </Grid>
+
+            <StackLayout Grid.Row="1">
+                <Slider
+                    x:Name="slider"
+                    MaximumTrackColor="Black"
+                    MinimumTrackColor="Black"
+                    Maximum="100"
+                    Minimum="20" />
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
