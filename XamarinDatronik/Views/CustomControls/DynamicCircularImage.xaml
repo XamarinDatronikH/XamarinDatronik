@@ -11,7 +11,8 @@
             Padding="0"
             BorderColor="Black"
             VerticalOptions="Fill"
-            HorizontalOptions="Fill">
+            HorizontalOptions="Fill"
+            IsClippedToBounds="True">
             <Image
                 Source="{Binding IconSource, Source={RelativeSource AncestorType={x:Type views:DynamicCircularImage}}}"
                 Aspect="AspectFill" />
