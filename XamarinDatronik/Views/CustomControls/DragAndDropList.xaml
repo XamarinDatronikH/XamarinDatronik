@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<StackLayout
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="XamarinDatronik.Views.DragAndDropList"
+    xmlns:views="clr-namespace:XamarinDatronik.Views"
+    x:Name="Container"
+    BindableLayout.ItemsSource="{Binding ItemsSource, Source={RelativeSource AncestorType={x:Type views:DragAndDropList}}}">
+    <!--
+    <BindableLayout.ItemsSource>
+        <x:Array Type="{x:Type x:String}">
+            <x:String>Test1</x:String>
+            <x:String>Test2</x:String>
+        </x:Array>
+    </BindableLayout.ItemsSource>
+    -->
+    <BindableLayout.ItemTemplate>
+        <DataTemplate>
+            <Grid
+                BackgroundColor="AliceBlue"
+                Padding="20">
+                <Grid.GestureRecognizers>
+                    <PanGestureRecognizer PanUpdated="ParentGridPanUpdated" />
+                </Grid.GestureRecognizers>
+                <Label
+                    Text="{Binding Text}"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Start" />
+            </Grid>
+        </DataTemplate>
+    </BindableLayout.ItemTemplate>
+</StackLayout>

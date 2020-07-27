@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="XamarinDatronik.Views.ShapesDemo">
+    <ContentPage.Content>
+        <Grid
+            RowDefinitions="*,*">
+            <Path
+                Stroke="Black"
+                Aspect="UniformToFill"
+                Fill="AliceBlue"
+                Grid.Row="1"
+                VerticalOptions="Fill"
+                HorizontalOptions="Fill"
+                Data="m250.79253,165.19999l358,0l0,175.26841c-187.26154,-193.80419 -179,66.78048 -358,28.83703l0,-204.10544z">
+            </Path>
+
+            <Path
+                Stroke="Black"
+                Aspect="UniformToFill"
+                Fill="AliceBlue"
+                Grid.Row="1"
+                VerticalOptions="Fill"
+                HorizontalOptions="Fill"
+                Data="m609.79255,524.28999l-356.99999,0l0,-106.41097c145.33396,56 144.84716,-190.54454 356.99999,-17.50787l0,123.91884z">
+            </Path>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
