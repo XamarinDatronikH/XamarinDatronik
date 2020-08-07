@@ -5,14 +5,19 @@
     x:Class="XamarinDatronik.Views.DragAndDropListDemo"
     xmlns:vm="clr-namespace:XamarinDatronik.ViewModels"
     xmlns:views="clr-namespace:XamarinDatronik.Views"
-    xmlns:behaviors="clr-namespace:XamarinDatronik.Behaviors">
+    xmlns:behaviors="clr-namespace:XamarinDatronik.Behaviors"
+    xmlns:converters="clr-namespace:XamarinDatronik.Converters">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:DragAndDropListOrderConverter x:Key="DragNDropConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.BindingContext>
         <vm:DragAndDropDemoViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             
@@ -24,23 +29,6 @@
                         Command="{Binding OrderChangedCommand}" />
                 </views:DragAndDropList.Behaviors>
             </views:DragAndDropList>
-            
-            <StackLayout
-                BackgroundColor="AliceBlue"
-                Grid.Row="1"
-                VerticalOptions="Center"
-                HorizontalOptions="Center">
-                <Frame
-                    HeightRequest="100"
-                    WidthRequest="100"
-                    BackgroundColor="Black"
-                    Padding="0"
-                    Grid.Row="1"
-                    CornerRadius="50"
-                    VerticalOptions="Center"
-                    HorizontalOptions="Center">
-                </Frame>
-            </StackLayout>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  x:Class="XamarinDatronik.Views.MoreCollectionViewDemo"
+  xmlns:views="clr-namespace:XamarinDatronik.Views"
+  xmlns:vm="clr-namespace:XamarinDatronik.ViewModels">
+  <ContentPage.BindingContext>
+    <vm:InDepthCollectionViewDemoViewModel />
+  </ContentPage.BindingContext>
+  <ContentPage.Content>
+    <Grid
+      RowDefinitions="*,*">
+      <Button
+        Grid.Row="0"
+        HorizontalOptions="Center"
+        VerticalOptions="Center"
+        Text="Colors!"
+        Clicked="Button_Clicked" />
+      <Grid
+        Grid.Row="1"
+        RowDefinitions="20,*"
+        TranslationY="200">
+        <BoxView
+          Grid.Row="0"
+          BackgroundColor="AliceBlue"
+          HorizontalOptions="Fill"
+          VerticalOptions="Fill" />
+
+        <CollectionView
+          Grid.Row="1"
+          ItemsSource="{Binding Colors}"
+          Margin="10,10,10,0"
+          IsGrouped="True"
+          x:Name="ColorsTest">
+          <CollectionView.ItemsLayout>
+            <GridItemsLayout
+              Span="3"
+              Orientation="Vertical" />
+          </CollectionView.ItemsLayout>
+          <CollectionView.GroupHeaderTemplate>
+            <DataTemplate>
+              <Label Text="{Binding Name}" />
+            </DataTemplate>
+          </CollectionView.GroupHeaderTemplate>
+          <CollectionView.ItemTemplate>
+            <DataTemplate>
+              <Grid
+                Padding="10">
+                <Frame
+                  HasShadow="False"
+                  Padding="0"
+                  HorizontalOptions="Fill"
+                  BackgroundColor="{Binding .}"
+                  BorderColor="Black"
+                  HeightRequest="50"/>
+              </Grid>
+            </DataTemplate>
+          </CollectionView.ItemTemplate>
+        </CollectionView>
+      </Grid>
+      
+    </Grid>
+  </ContentPage.Content>
+</ContentPage>

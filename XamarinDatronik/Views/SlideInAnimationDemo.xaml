@@ -10,7 +10,14 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
+
+          <views:GradientBackgroundView
+            Grid.Row="3"
+            Grid.RowSpan="2"
+            HorizontalOptions="Fill" />
 
             <views:DynamicCircularImage
                 x:Name="ImageOne"

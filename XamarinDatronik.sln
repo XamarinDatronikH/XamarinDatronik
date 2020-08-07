@@ -54,4 +54,16 @@ Global
 		{D35EC330-7137-4799-9591-2A82D2E8E1F0}.Release|iPhone.ActiveCfg = Release|Any CPU
 		{D35EC330-7137-4799-9591-2A82D2E8E1F0}.Release|iPhone.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		Policies = $0
+		$0.TextStylePolicy = $1
+		$1.FileWidth = 80
+		$1.TabWidth = 2
+		$1.TabsToSpaces = True
+		$1.IndentWidth = 2
+		$1.scope = application/xaml
+		$0.XmlFormattingPolicy = $2
+		$2.inheritsSet = null
+		$2.scope = application/xaml
+	EndGlobalSection
 EndGlobal

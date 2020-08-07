@@ -1,32 +1,91 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<StackLayout
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="XamarinDatronik.Views.DragAndDropList"
-    xmlns:views="clr-namespace:XamarinDatronik.Views"
-    x:Name="Container"
-    BindableLayout.ItemsSource="{Binding ItemsSource, Source={RelativeSource AncestorType={x:Type views:DragAndDropList}}}">
+<Grid
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  x:Class="XamarinDatronik.Views.DragAndDropList"
+  xmlns:views="clr-namespace:XamarinDatronik.Views"
+  HorizontalOptions="Fill"
+  VerticalOptions="Fill"
+  RowDefinitions="Auto,*"
+  RowSpacing="0">
+  <Grid
+    Grid.Row="0">
+    <Label
+      Text="Tasks"
+      FontAttributes="Italic"
+      FontSize="Large"
+      VerticalOptions="Center"
+      HorizontalOptions="Center" />
+    <Image
+      Source="tab_about.png"
+      HeightRequest="35"
+      WidthRequest="35"
+      Margin="10"
+      VerticalOptions="Center"
+      HorizontalOptions="End">
+      <Image.GestureRecognizers>
+        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+      </Image.GestureRecognizers>
+    </Image>
+  </Grid>
+  <Grid
+    Grid.Row="1">
     <!--
-    <BindableLayout.ItemsSource>
-        <x:Array Type="{x:Type x:String}">
-            <x:String>Test1</x:String>
-            <x:String>Test2</x:String>
-        </x:Array>
-    </BindableLayout.ItemsSource>
+    <ScrollView
+      Grid.Row="0"
+      VerticalOptions="Fill"
+      HorizontalOptions="Fill"
+      x:Name="ContainerScrollView"
+      IsEnabled="False">
     -->
-    <BindableLayout.ItemTemplate>
-        <DataTemplate>
-            <Grid
+      <StackLayout
+        x:Name="Container"
+        Spacing="0"
+        BindableLayout.ItemsSource="{Binding ItemsSource, Source={RelativeSource AncestorType={x:Type views:DragAndDropList}}}"
+        ChildAdded="Container_ChildAdded">
+        <BindableLayout.ItemTemplate>
+          <DataTemplate>
+            <Grid Padding="0,5,0,5">
+              <Grid.GestureRecognizers>
+                <PanGestureRecognizer PanUpdated="ParentGridPanUpdated" />
+              </Grid.GestureRecognizers>
+          
+              <Grid
+                Grid.Row="0"
                 BackgroundColor="AliceBlue"
                 Padding="20">
-                <Grid.GestureRecognizers>
-                    <PanGestureRecognizer PanUpdated="ParentGridPanUpdated" />
-                </Grid.GestureRecognizers>
                 <Label
-                    Text="{Binding Text}"
-                    VerticalOptions="Center"
-                    HorizontalOptions="Start" />
+                  Text="{Binding Text}"
+                  VerticalOptions="Center"
+                  HorizontalOptions="Start" />
+                <Image
+                  Source="drag_36.png"
+                  HeightRequest="25"
+                  WidthRequest="25"
+                  VerticalOptions="Center"
+                  HorizontalOptions="End"
+                  IsVisible="{Binding IsEditMode, Source={RelativeSource AncestorType={x:Type views:DragAndDropList}}}"/>
+              </Grid>
             </Grid>
-        </DataTemplate>
-    </BindableLayout.ItemTemplate>
-</StackLayout>
+          </DataTemplate>
+        </BindableLayout.ItemTemplate>
+      </StackLayout>
+    <!--
+    </ScrollView>
+    -->
+    <BoxView
+      x:Name="ScrollUp"
+      Grid.Row="0"
+      HeightRequest="50"
+      BackgroundColor="Pink"
+      HorizontalOptions="Fill"
+      VerticalOptions="Start" />
+    <BoxView
+      x:Name="ScrollDown"
+      Grid.Row="0"
+      HeightRequest="50"
+      BackgroundColor="Pink"
+      HorizontalOptions="Fill"
+      VerticalOptions="End" />
+  </Grid>
+</Grid>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Input;
 using MvvmHelpers;
 using Xamarin.Forms;
@@ -16,22 +17,19 @@ namespace XamarinDatronik.ViewModels
 
         public DragAndDropDemoViewModel()
         {
-            Tasks = new ObservableRangeCollection<DragAndDropListItem>
-            {
-                new DragAndDropListItem("Task one"),
-                new DragAndDropListItem("Task two"),
-                new DragAndDropListItem("Task three"),
-                new DragAndDropListItem("Task four"),
-                new DragAndDropListItem("Task five"),
-            };
+            Tasks = new ObservableRangeCollection<DragAndDropListItem>();
 
-            OrderChangedCommand = new Command(DoOrderChanged);
+            for (int i = 0; i < 55; i++)
+            {
+                Tasks.Add(new DragAndDropListItem($"Task {i}"));
+            }
+
+            OrderChangedCommand = new Command(WhenOrderChanged);
         }
 
-        private void DoOrderChanged(object obj)
+        private void WhenOrderChanged()
         {
-            var x = obj;
-            var y = 0;
+            // Save to database or whatever when order changed etc.
         }
 
         #endregion
@@ -41,18 +39,6 @@ namespace XamarinDatronik.ViewModels
         public ObservableRangeCollection<DragAndDropListItem> Tasks { get; }
 
         public ICommand OrderChangedCommand { get; }
-
-        #endregion
-
-        #region METHODS
-
-        public void SetOrder(int itemIndex, int newPositionIndex)
-        {
-            var task = Tasks[itemIndex];
-
-            Tasks.Remove(task);
-            Tasks.Insert(newPositionIndex, task);
-        }
 
         #endregion
     }
