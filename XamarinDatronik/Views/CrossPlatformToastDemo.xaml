@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:BaseContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="XamarinDatronik.Views.CrossPlatformToastDemo"
+    xmlns:views="clr-namespace:XamarinDatronik.Views"
+    BackgroundImageSource="space_background.jpg"
+    Title="Network Info">
+    <ContentPage.Content>
+        <Grid>
+            <Button
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Text="Fetch public IP-address"
+                BackgroundColor="Black"
+                TextColor="White"
+                Clicked="Button_Clicked"
+                BorderColor="White"
+                BorderWidth="1"/>
+        </Grid>
+    </ContentPage.Content>
+</views:BaseContentPage>

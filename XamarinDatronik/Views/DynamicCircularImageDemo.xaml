@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage
+<views:BaseContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="XamarinDatronik.Views.DynamicCircularImageDemo"
@@ -50,7 +50,9 @@
                     MinimumTrackColor="Black"
                     Maximum="100"
                     Minimum="20" />
+
+                <Button Text="Toast" Clicked="Button_Clicked" />
             </StackLayout>
         </Grid>
     </ContentPage.Content>
-</ContentPage>
+</views:BaseContentPage>

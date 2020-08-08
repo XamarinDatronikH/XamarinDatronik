@@ -124,6 +124,16 @@
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
     <BundleResource Include="Resources\nature.jpg" />
     <BundleResource Include="Resources\train.jpg" />
+    <BundleResource Include="Resources\animation.png" />
+    <BundleResource Include="Resources\circular.png" />
+    <BundleResource Include="Resources\network.png" />
+    <BundleResource Include="Resources\space_background.jpg" />
+    <BundleResource Include="Resources\animation_small.png" />
+    <BundleResource Include="Resources\circular_small.png" />
+    <BundleResource Include="Resources\network_small.png" />
+    <BundleResource Include="Resources\animation_smallest.png" />
+    <BundleResource Include="Resources\circular_smallest.png" />
+    <BundleResource Include="Resources\network_smallest.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
