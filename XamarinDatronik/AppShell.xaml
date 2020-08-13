@@ -7,8 +7,7 @@
     mc:Ignorable="d"
     xmlns:local="clr-namespace:XamarinDatronik.Views"
     Title="XamarinDatronik"
-    x:Class="XamarinDatronik.AppShell"
-    xmlns:views="clr-namespace:XamarinDatronik.Views">
+    x:Class="XamarinDatronik.AppShell">
     
     <Shell.Resources>
         <ResourceDictionary>
@@ -27,16 +26,18 @@
             <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
         </ResourceDictionary>
     </Shell.Resources>
-    <!-- Your Pages -->
     <TabBar>
-        <Tab Title="Circular" Icon="circular_smallest.png">
+        <Tab Title="Circular" Icon="circular.png">
             <ShellContent ContentTemplate="{DataTemplate local:DynamicCircularImageDemo}" />
         </Tab>
-        <Tab Title="Animation" Icon="animation_smallest.png">
+        <Tab Title="Animation" Icon="animation.png">
             <ShellContent ContentTemplate="{DataTemplate local:SlideInAnimationDemo}" />
         </Tab>
-        <Tab Title="Network" Icon="network_smallest.png">
+        <Tab Title="Toast" Icon="network.png">
             <ShellContent ContentTemplate="{DataTemplate local:CrossPlatformToastDemo}" />
+        </Tab>
+        <Tab Title="Gradient">
+            <ShellContent ContentTemplate="{DataTemplate local:GradientDemo}" />
         </Tab>
     </TabBar>
 </Shell>

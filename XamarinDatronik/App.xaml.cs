@@ -10,6 +10,7 @@ namespace XamarinDatronik
 
         public App()
         {
+            Device.SetFlags(new[] { "Brush_Experimental" } );
             InitializeComponent();
             MainPage = new AppShell();
         }
