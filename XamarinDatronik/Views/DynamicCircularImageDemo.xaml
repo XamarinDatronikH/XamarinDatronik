@@ -50,8 +50,6 @@
                     MinimumTrackColor="Black"
                     Maximum="100"
                     Minimum="20" />
-
-                <Button Text="Toast" Clicked="Button_Clicked" />
             </StackLayout>
         </Grid>
     </ContentPage.Content>

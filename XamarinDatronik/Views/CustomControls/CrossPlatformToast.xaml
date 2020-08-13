@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="XamarinDatronik.Views.CustomControls.CrossPlatformToast">
+    <ContentView.Content>
+        <StackLayout
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            BindableLayout.ItemsSource="{Binding Toasts}">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <Frame
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        BackgroundColor="#AA000000"
+                        HeightRequest="30"
+                        CornerRadius="25"
+                        Padding="25,10,25,10"
+                        BorderColor="White">
+                        <Label
+                            Text="{Binding .}"
+                            TextColor="White"
+                            HorizontalTextAlignment="Center"
+                            VerticalTextAlignment="Center"
+                            FontSize="20"
+                            LineBreakMode="TailTruncation" />
+                    </Frame>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>
