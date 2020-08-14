@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="XamarinDatronik.Views.CustomControls.ResizableContainer"
+    ControlTemplate="{StaticResource ResizableContainerControlTemplate}">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <ControlTemplate x:Key="ResizableContainerControlTemplate">
+                <Grid
+                    Padding="5"
+                    RowDefinitions="*,Auto">
+                    <Frame
+                        x:Name="ContentContainer"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="Fill"
+                        Padding="0"
+                        HasShadow="False"
+                        CornerRadius="0"
+                        BorderColor="Black"
+                        IsClippedToBounds="True">
+                        <ContentPresenter
+                            Grid.Row="0"
+                            x:Name="Content"/>
+                    </Frame>
+
+                    <Grid
+                        Grid.Row="1"
+                        RowDefinitions="*,*"
+                        ColumnDefinitions="Auto,*">
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Text="Width:" />
+                        <Slider
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            x:Name="WidthSlider"
+                            ValueChanged="SliderChanged" />
+
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Text="Height:" />
+                        <Slider
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            x:Name="HeightSlider"
+                            ValueChanged="SliderChanged" />
+                    </Grid>
+                </Grid>
+            </ControlTemplate>
+        </ResourceDictionary>
+    </ContentView.Resources>
+</ContentView>

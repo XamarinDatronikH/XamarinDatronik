@@ -22,5 +22,11 @@
       <DependentUpon>DynamicCircularImage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\CustomControls\ResizableContainer.xaml.cs">
+      <DependentUpon>ResizableContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ResizableContainerDemo.xaml.cs">
+      <DependentUpon>ResizableContainerDemo.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>
