@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:BaseContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="XamarinDatronik.Views.ConverterDemo"
+    xmlns:views="clr-namespace:XamarinDatronik.Views"
+    xmlns:vm="clr-namespace:XamarinDatronik.ViewModels"
+    xmlns:models="clr-namespace:XamarinDatronik.Models"
+    xmlns:converters="clr-namespace:XamarinDatronik.Converters">
+    <ContentPage.BindingContext>
+        <vm:ConverterDemoViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:SecondsConverter x:Key="SecondsConverter" />
+
+            <Style TargetType="Label">
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid
+            Padding="20"
+            RowSpacing="20">
+            <Label
+                Grid.Row="0"
+                Text="{Binding ElapsedSeconds, Converter={StaticResource SecondsConverter}, ConverterParameter={x:Static models:ElapsedTimeFormat.MinSec}}"/>
+            <Label
+                Grid.Row="1"
+                Text="{Binding ElapsedSeconds, Converter={StaticResource SecondsConverter}, ConverterParameter={x:Static models:ElapsedTimeFormat.HrMinSec}}"/>
+            <Label
+                Grid.Row="2"
+                Text="{Binding ElapsedSeconds, Converter={StaticResource SecondsConverter}, ConverterParameter={x:Static models:ElapsedTimeFormat.DayHrMinSec}}"/>
+
+            <Grid
+                Grid.Row="3"
+                ColumnSpacing="20">
+                <StackLayout
+                    Grid.Column="0">
+                    <Label
+                        Text="{Binding ElapsedSeconds, Converter={StaticResource SecondsConverter}, ConverterParameter={x:Static models:ElapsedTimeFormat.TotalDays}}"
+                        FontSize="35" />
+                    <Label
+                        Text="D" />
+                </StackLayout>
+                <StackLayout
+                    Grid.Column="1">
+                    <Label
+                        Text="{Binding ElapsedSeconds, Converter={StaticResource SecondsConverter}, ConverterParameter={x:Static models:ElapsedTimeFormat.Hours}}"
+                        FontSize="35" />
+                    <Label
+                        Text="H" />
+                </StackLayout>
+                <StackLayout
+                    Grid.Column="2">
+                    <Label
+                        Text="{Binding ElapsedSeconds, Converter={StaticResource SecondsConverter}, ConverterParameter={x:Static models:ElapsedTimeFormat.Minutes}}"
+                        FontSize="35"/>
+                    <Label
+                        Text="M" />
+                </StackLayout>
+                <StackLayout
+                    Grid.Column="3">
+                    <Label
+                        Text="{Binding ElapsedSeconds, Converter={StaticResource SecondsConverter}, ConverterParameter={x:Static models:ElapsedTimeFormat.Seconds}}"
+                        FontSize="35" />
+                    <Label
+                        Text="S" />
+                </StackLayout>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</views:BaseContentPage>
