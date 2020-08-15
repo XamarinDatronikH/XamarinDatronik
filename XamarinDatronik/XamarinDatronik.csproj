@@ -16,11 +16,26 @@
     <Folder Include="Models\" />
     <Folder Include="Views\CustomControls\" />
     <Folder Include="Helpers\" />
+    <Folder Include="Fonts\" />
+    <Folder Include="Converters\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\CustomControls\DynamicCircularImage.xaml.cs">
       <DependentUpon>DynamicCircularImage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\SpotifyDemo.xaml.cs">
+      <DependentUpon>SpotifyDemo.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Fonts\lineto-circular-black.ttf" />
+    <None Remove="Fonts\lineto-circular-pro-medium.ttf" />
+    <None Remove="Fonts\lineto-circular-pro-book.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Fonts\lineto-circular-black.ttf" />
+    <EmbeddedResource Include="Fonts\lineto-circular-pro-medium.ttf" />
+    <EmbeddedResource Include="Fonts\lineto-circular-pro-book.ttf" />
   </ItemGroup>
 </Project>

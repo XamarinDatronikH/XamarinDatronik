@@ -1,0 +1,325 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="XamarinDatronik.Views.SpotifyDemo"
+    NavigationPage.HasNavigationBar="False"
+    xmlns:vm="clr-namespace:XamarinDatronik.ViewModels"
+    xmlns:views="clr-namespace:XamarinDatronik.Views"
+    xmlns:converters="clr-namespace:XamarinDatronik.Converters">
+    <ContentPage.BindingContext>
+        <vm:SpotifyDemoViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="SpotifyFont" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="VerticalTextAlignment" Value="Center" />
+            <Setter Property="HorizontalTextAlignment" Value="Center" />
+        </Style>
+
+        <Color x:Key="Green">#1db954</Color>
+        <Color x:Key="DarkGray">#212121</Color>
+        <Color x:Key="Black">#121212</Color>
+        <Color x:Key="Gray">#535353</Color>
+        <Color x:Key="LightGray">#b3b3b3</Color>
+
+        <converters:InverterConverter x:Key="Inverter" />
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid
+            RowDefinitions="*,60,2,60"
+            RowSpacing="0">
+            <Grid
+                Grid.Row="0"
+                RowDefinitions="*,6*,7*"
+                RowSpacing="0"
+                SizeChanged="Grid_SizeChanged"
+                x:Name="TopContainer">
+
+                <!-- Background Image -->
+                <Image
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Source="train.jpg"
+                    VerticalOptions="Fill"
+                    Aspect="Fill" />
+
+                <Grid
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill">
+                    <Grid.Background>
+                        <LinearGradientBrush
+                            StartPoint="0,0"
+                            EndPoint="0,1">
+                            <GradientStop
+                                Color="#30121212"
+                                Offset="0.0"/>
+                            <GradientStop
+                                Color="#DF121212"
+                                Offset=".8"         />
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                </Grid>
+
+                <!-- Header and listerners count -->
+                <StackLayout
+                    Grid.Row="1"
+                    VerticalOptions="End"
+                    TranslationY="-25"
+                    x:Name="ArtistInfoContainer">
+                    <Label
+                        Text="The Trainz"
+                        TextColor="White"
+                        FontFamily="SpotifyFontBold"
+                        FontSize="45"
+                        HorizontalOptions="Center"/>
+                    <Label
+                        Text="23,500 MONTHLY LISTENERS"
+                        TextColor="{StaticResource LightGray}"
+                        FontSize="12"
+                        Margin="10,10,10,20"
+                        HorizontalOptions="Center"/>
+                </StackLayout>
+
+                <ScrollView
+                    Grid.Row="1"
+                    Grid.RowSpan="2"
+                    x:Name="MainScrollView"
+                    BackgroundColor="Transparent"
+                    Scrolled="OnMainScrollViewScrolled">
+                    <StackLayout
+                        Spacing="0">
+                        <BoxView
+                            x:Name="ScrollViewMarginView"
+                            HorizontalOptions="Fill"
+                            BackgroundColor="Transparent" />
+                        <Grid
+                            BackgroundColor="#121212">
+                            <StackLayout
+                                Padding="0,25,0,0">
+                                <Label
+                                    Text="Popular"
+                                    TextColor="White"
+                                    FontSize="20"
+                                    FontFamily="SpotifyFontMedium"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Center"
+                                    Margin="10" />
+
+                                <StackLayout
+                                    BindableLayout.ItemsSource="{Binding PopularSongs}"
+                                    HorizontalOptions="Fill">
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid
+                                                ColumnDefinitions="30,50,*,50">
+
+                                                <!-- Popularity rank -->
+                                                <Label
+                                                    Grid.Column="0"
+                                                    Text="{Binding PopularityRank}"
+                                                    TextColor="{StaticResource LightGray}"/>
+
+                                                <!-- Album cover -->
+                                                <Image
+                                                    Grid.Column="1"
+                                                    Source="{Binding AlbumCover}"
+                                                    Aspect="AspectFill"
+                                                    HeightRequest="50" />
+
+                                                <!-- Title and listener count -->
+                                                <StackLayout
+                                                    Grid.Column="2"
+                                                    VerticalOptions="Center"
+                                                    HorizontalOptions="Fill"
+                                                    Spacing="0">
+                                                    <Label
+                                                        Text="{Binding Title}"
+                                                        TextColor="White"
+                                                        FontSize="17"
+                                                        HorizontalOptions="Start"/>
+                                                    <Label
+                                                        Text="{Binding Plays}"
+                                                        TextColor="{StaticResource LightGray}"
+                                                        FontSize="12"
+                                                        HorizontalOptions="Start"/>
+                                                </StackLayout>
+
+                                                <Image
+                                                    Grid.Column="3"
+                                                    Source="more_vertical.png"
+                                                    HeightRequest="25"
+                                                    WidthRequest="25"
+                                                    HorizontalOptions="Center"
+                                                    VerticalOptions="Center"/>
+
+                                                <!-- expand icon-->
+                                            </Grid>
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+                                </StackLayout>
+                                <BoxView
+                                    HeightRequest="600"
+                                    HorizontalOptions="Fill" />
+                            </StackLayout>
+                            
+                            <Frame
+                                IsVisible="{Binding ShowTempShuffleBtn,
+                                            Source={RelativeSource AncestorType={x:Type views:SpotifyDemo}},
+                                            Converter={StaticResource Inverter}}"
+                                HasShadow="False"
+                                Padding="0"
+                                HeightRequest="50"
+                                WidthRequest="200"
+                                CornerRadius="25"
+                                BackgroundColor="{StaticResource Green}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Start"
+                                TranslationY="-25">
+                                <Label
+                                    Text="SHUFFLE PLAY"
+                                    TextColor="White"
+                                    FontFamily="SpotifyFontBold"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"
+                                    HorizontalTextAlignment="Center"
+                                    VerticalTextAlignment="Center" />
+                            </Frame>
+                        </Grid>
+                    </StackLayout>
+                </ScrollView>
+
+                <!-- Shuffle button when scrolled-->
+                <Frame
+                    IsVisible="{Binding ShowTempShuffleBtn, Source={RelativeSource AncestorType={x:Type views:SpotifyDemo}}}"
+                    Grid.Row="1"
+                    HasShadow="False"
+                    Padding="0"
+                    HeightRequest="50"
+                    WidthRequest="200"
+                    CornerRadius="25"
+                    BackgroundColor="{StaticResource Green}"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Start">
+                    <Label
+                        Text="SHUFFLE PLAY"
+                        TextColor="White"
+                        FontFamily="SpotifyFontBold"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Center" />
+                </Frame>
+                <!-- Top navigation -->
+                <Grid
+                    x:Name="TopNavigation"
+                    Grid.Row="0"
+                    VerticalOptions="Fill"
+                    HorizontalOptions="Fill"
+                    RowSpacing="0"
+                    BackgroundColor="Transparent"
+                    ColumnDefinitions="30,80,*,80,30">
+                    <Image
+                        Grid.Column="0"
+                        Source="back_arrow.png"
+                        HeightRequest="30"
+                        VerticalOptions="Center"/>
+
+                    <Label
+                        x:Name="TempArtistTitle"
+                        Grid.Column="2"
+                        Text="The Trainz"
+                        TextColor="White"
+                        FontFamily="SpotifyFontMedium" />
+
+                    <Frame
+                        Grid.Column="3"
+                        Padding="5"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        BackgroundColor="#50b3b3b3"
+                        CornerRadius="2"
+                        HasShadow="False">
+                        <Label
+                            Text="FOLLOW"
+                            FontSize="10"
+                            TextColor="White"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center" />
+                    </Frame>
+
+                    <Image
+                        Grid.Column="4"
+                        Source="more_vertical.png"
+                        HeightRequest="30"
+                        VerticalOptions="Center"/>
+                </Grid>
+            </Grid>
+
+            <!-- Currently playing strip -->
+            <Grid
+                Grid.Row="1"
+                BackgroundColor="#212121"
+                ColumnDefinitions="60,*,30,50">
+                <Image
+                    Grid.Column="0"
+                    Source="nature.jpg"
+                    Aspect="AspectFill"/>
+                <StackLayout
+                    Grid.Column="1"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Start">
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span
+                                    Text="The Trainz "
+                                    TextColor="White"
+                                    FontFamily="SpotifyFontBold"
+                                    FontSize="14" />
+                                <Span
+                                    Text=" * Trainz for lajf"
+                                    FontFamily="SpotifyFont"
+                                    TextColor="Gray"
+                                    FontSize="12"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </StackLayout>
+
+                <Image
+                    Grid.Column="2"
+                    Source="favorite_outline.png"
+                    Aspect="AspectFit"
+                    HeightRequest="25"
+                    WidthRequest="25"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center" />
+
+                <Image
+                    Grid.Column="3"
+                    Source="pause.png"
+                    Aspect="AspectFit"
+                    HeightRequest="30"
+                    WidthRequest="30"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center" />
+            </Grid>
+            <BoxView
+                Grid.Row="2"
+                HeightRequest="1"
+                BackgroundColor="Black"
+                HorizontalOptions="Fill"/>
+            <!-- Bottom Nav -->
+            <Grid
+                Grid.Row="3"
+                BackgroundColor="#212121">
+
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

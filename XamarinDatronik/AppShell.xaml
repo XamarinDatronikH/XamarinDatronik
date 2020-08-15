@@ -29,6 +29,9 @@
     </Shell.Resources>
     <!-- Your Pages -->
     <TabBar>
+        <Tab Title="Spotify">
+            <ShellContent ContentTemplate="{DataTemplate local:SpotifyBasePage}" />
+        </Tab>
         <Tab Title="Circular" Icon="circular_smallest.png">
             <ShellContent ContentTemplate="{DataTemplate local:DynamicCircularImageDemo}" />
         </Tab>
