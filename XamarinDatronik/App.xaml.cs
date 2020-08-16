@@ -15,7 +15,7 @@ namespace XamarinDatronik
         {
             InitializeComponent();
             MainPage = new AppShell();
-            Device.SetFlags(new[] { "Brush_Experimental" });
+            Device.SetFlags(new[] { "Brush_Experimental", "DragAndDrop_Experimental" });
         }
 
         protected override void OnStart()

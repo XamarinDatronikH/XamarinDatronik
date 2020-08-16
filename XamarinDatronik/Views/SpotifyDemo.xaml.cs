@@ -47,17 +47,21 @@ namespace XamarinDatronik.Views
                 ShowTempShuffleBtn = true;
             else
             {
+                FadedLayer.TranslationY = -(e.ScrollY);
+                var multiplier = 0.2 / threshold;
+
                 ShowTempShuffleBtn = false;
 
                 var artistInfoY = ArtistInfoContainer.Y - ArtistInfoContainer.Height;
 
                 var spaceBetween = threshold - artistInfoY;
 
+                ArtistImage.Scale = 1.2 - multiplier * e.ScrollY;
+
                 if (e.ScrollY >= artistInfoY)
                     TempArtistTitle.Opacity = Math.Min((e.ScrollY - spaceBetween) / spaceBetween, 1);
                 else
                     TempArtistTitle.Opacity = 0;
-
             }
         }
 

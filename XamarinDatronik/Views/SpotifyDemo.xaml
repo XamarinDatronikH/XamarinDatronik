@@ -1,325 +1,496 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="XamarinDatronik.Views.SpotifyDemo"
-    NavigationPage.HasNavigationBar="False"
-    xmlns:vm="clr-namespace:XamarinDatronik.ViewModels"
-    xmlns:views="clr-namespace:XamarinDatronik.Views"
-    xmlns:converters="clr-namespace:XamarinDatronik.Converters">
-    <ContentPage.BindingContext>
-        <vm:SpotifyDemoViewModel />
-    </ContentPage.BindingContext>
-    <ContentPage.Resources>
-        <Style TargetType="Label">
-            <Setter Property="FontFamily" Value="SpotifyFont" />
-            <Setter Property="HorizontalOptions" Value="Center" />
-            <Setter Property="VerticalOptions" Value="Center" />
-            <Setter Property="VerticalTextAlignment" Value="Center" />
-            <Setter Property="HorizontalTextAlignment" Value="Center" />
-        </Style>
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  x:Class="XamarinDatronik.Views.SpotifyDemo"
+  NavigationPage.HasNavigationBar="False"
+  xmlns:vm="clr-namespace:XamarinDatronik.ViewModels"
+  xmlns:views="clr-namespace:XamarinDatronik.Views"
+  xmlns:converters="clr-namespace:XamarinDatronik.Converters"
+  xmlns:custom="clr-namespace:XamarinDatronik.Views.CustomControls">
+  <ContentPage.BindingContext>
+      <vm:SpotifyDemoViewModel />
+  </ContentPage.BindingContext>
+  <ContentPage.Resources>
+    <Style TargetType="Label">
+      <Setter Property="FontFamily" Value="SpotifyFont" />
+      <Setter Property="HorizontalOptions" Value="Center" />
+      <Setter Property="VerticalOptions" Value="Center" />
+      <Setter Property="VerticalTextAlignment" Value="Center" />
+      <Setter Property="HorizontalTextAlignment" Value="Center" />
+    </Style>
 
-        <Color x:Key="Green">#1db954</Color>
-        <Color x:Key="DarkGray">#212121</Color>
-        <Color x:Key="Black">#121212</Color>
-        <Color x:Key="Gray">#535353</Color>
-        <Color x:Key="LightGray">#b3b3b3</Color>
+    <Color x:Key="Green">#1db954</Color>
+    <Color x:Key="DarkGray">#212121</Color>
+    <Color x:Key="Black">#121212</Color>
+    <Color x:Key="Gray">#535353</Color>
+    <Color x:Key="LightGray">#b3b3b3</Color>
 
-        <converters:InverterConverter x:Key="Inverter" />
-    </ContentPage.Resources>
-    <ContentPage.Content>
+    <converters:InverterConverter x:Key="Inverter" />
+  </ContentPage.Resources>
+  <ContentPage.Content>
+    <Grid
+      RowDefinitions="*,2,60,2,55"
+      RowSpacing="0">
+      <!-- Top container -->
+      <Grid
+        Grid.Row="0"
+        RowDefinitions="*,6*,7*"
+        RowSpacing="0"
+        SizeChanged="Grid_SizeChanged"
+        x:Name="TopContainer">
+        <!-- Background Image -->
+        <Image
+          x:Name="ArtistImage"
+          Grid.Row="0"
+          Grid.RowSpan="2"
+          Source="train.jpg"
+          VerticalOptions="Fill"
+          Aspect="Fill"
+          Scale="1.2" />
+        <!-- Faded layer-->
         <Grid
-            RowDefinitions="*,60,2,60"
-            RowSpacing="0">
-            <Grid
-                Grid.Row="0"
-                RowDefinitions="*,6*,7*"
-                RowSpacing="0"
-                SizeChanged="Grid_SizeChanged"
-                x:Name="TopContainer">
-
-                <!-- Background Image -->
-                <Image
-                    Grid.Row="0"
-                    Grid.RowSpan="2"
-                    Source="train.jpg"
-                    VerticalOptions="Fill"
-                    Aspect="Fill" />
-
-                <Grid
-                    Grid.Row="0"
-                    Grid.RowSpan="2"
-                    HorizontalOptions="Fill"
-                    VerticalOptions="Fill">
-                    <Grid.Background>
-                        <LinearGradientBrush
-                            StartPoint="0,0"
-                            EndPoint="0,1">
-                            <GradientStop
-                                Color="#30121212"
-                                Offset="0.0"/>
-                            <GradientStop
-                                Color="#DF121212"
-                                Offset=".8"         />
-                        </LinearGradientBrush>
-                    </Grid.Background>
-                </Grid>
-
-                <!-- Header and listerners count -->
-                <StackLayout
-                    Grid.Row="1"
-                    VerticalOptions="End"
-                    TranslationY="-25"
-                    x:Name="ArtistInfoContainer">
-                    <Label
-                        Text="The Trainz"
-                        TextColor="White"
-                        FontFamily="SpotifyFontBold"
-                        FontSize="45"
-                        HorizontalOptions="Center"/>
-                    <Label
-                        Text="23,500 MONTHLY LISTENERS"
-                        TextColor="{StaticResource LightGray}"
-                        FontSize="12"
-                        Margin="10,10,10,20"
-                        HorizontalOptions="Center"/>
-                </StackLayout>
-
-                <ScrollView
-                    Grid.Row="1"
-                    Grid.RowSpan="2"
-                    x:Name="MainScrollView"
-                    BackgroundColor="Transparent"
-                    Scrolled="OnMainScrollViewScrolled">
-                    <StackLayout
-                        Spacing="0">
-                        <BoxView
-                            x:Name="ScrollViewMarginView"
-                            HorizontalOptions="Fill"
-                            BackgroundColor="Transparent" />
-                        <Grid
-                            BackgroundColor="#121212">
-                            <StackLayout
-                                Padding="0,25,0,0">
-                                <Label
-                                    Text="Popular"
-                                    TextColor="White"
-                                    FontSize="20"
-                                    FontFamily="SpotifyFontMedium"
-                                    VerticalOptions="Center"
-                                    HorizontalOptions="Center"
-                                    Margin="10" />
-
-                                <StackLayout
-                                    BindableLayout.ItemsSource="{Binding PopularSongs}"
-                                    HorizontalOptions="Fill">
-                                    <BindableLayout.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid
-                                                ColumnDefinitions="30,50,*,50">
-
-                                                <!-- Popularity rank -->
-                                                <Label
-                                                    Grid.Column="0"
-                                                    Text="{Binding PopularityRank}"
-                                                    TextColor="{StaticResource LightGray}"/>
-
-                                                <!-- Album cover -->
-                                                <Image
-                                                    Grid.Column="1"
-                                                    Source="{Binding AlbumCover}"
-                                                    Aspect="AspectFill"
-                                                    HeightRequest="50" />
-
-                                                <!-- Title and listener count -->
-                                                <StackLayout
-                                                    Grid.Column="2"
-                                                    VerticalOptions="Center"
-                                                    HorizontalOptions="Fill"
-                                                    Spacing="0">
-                                                    <Label
-                                                        Text="{Binding Title}"
-                                                        TextColor="White"
-                                                        FontSize="17"
-                                                        HorizontalOptions="Start"/>
-                                                    <Label
-                                                        Text="{Binding Plays}"
-                                                        TextColor="{StaticResource LightGray}"
-                                                        FontSize="12"
-                                                        HorizontalOptions="Start"/>
-                                                </StackLayout>
-
-                                                <Image
-                                                    Grid.Column="3"
-                                                    Source="more_vertical.png"
-                                                    HeightRequest="25"
-                                                    WidthRequest="25"
-                                                    HorizontalOptions="Center"
-                                                    VerticalOptions="Center"/>
-
-                                                <!-- expand icon-->
-                                            </Grid>
-                                        </DataTemplate>
-                                    </BindableLayout.ItemTemplate>
-                                </StackLayout>
-                                <BoxView
-                                    HeightRequest="600"
-                                    HorizontalOptions="Fill" />
-                            </StackLayout>
-                            
-                            <Frame
-                                IsVisible="{Binding ShowTempShuffleBtn,
-                                            Source={RelativeSource AncestorType={x:Type views:SpotifyDemo}},
-                                            Converter={StaticResource Inverter}}"
-                                HasShadow="False"
-                                Padding="0"
-                                HeightRequest="50"
-                                WidthRequest="200"
-                                CornerRadius="25"
-                                BackgroundColor="{StaticResource Green}"
-                                HorizontalOptions="Center"
-                                VerticalOptions="Start"
-                                TranslationY="-25">
-                                <Label
-                                    Text="SHUFFLE PLAY"
-                                    TextColor="White"
-                                    FontFamily="SpotifyFontBold"
-                                    HorizontalOptions="Center"
-                                    VerticalOptions="Center"
-                                    HorizontalTextAlignment="Center"
-                                    VerticalTextAlignment="Center" />
-                            </Frame>
-                        </Grid>
-                    </StackLayout>
-                </ScrollView>
-
-                <!-- Shuffle button when scrolled-->
-                <Frame
-                    IsVisible="{Binding ShowTempShuffleBtn, Source={RelativeSource AncestorType={x:Type views:SpotifyDemo}}}"
-                    Grid.Row="1"
-                    HasShadow="False"
-                    Padding="0"
-                    HeightRequest="50"
-                    WidthRequest="200"
-                    CornerRadius="25"
-                    BackgroundColor="{StaticResource Green}"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Start">
-                    <Label
-                        Text="SHUFFLE PLAY"
-                        TextColor="White"
-                        FontFamily="SpotifyFontBold"
-                        HorizontalOptions="Center"
-                        VerticalOptions="Center"
-                        HorizontalTextAlignment="Center"
-                        VerticalTextAlignment="Center" />
-                </Frame>
-                <!-- Top navigation -->
-                <Grid
-                    x:Name="TopNavigation"
-                    Grid.Row="0"
-                    VerticalOptions="Fill"
-                    HorizontalOptions="Fill"
-                    RowSpacing="0"
-                    BackgroundColor="Transparent"
-                    ColumnDefinitions="30,80,*,80,30">
-                    <Image
-                        Grid.Column="0"
-                        Source="back_arrow.png"
-                        HeightRequest="30"
-                        VerticalOptions="Center"/>
-
-                    <Label
-                        x:Name="TempArtistTitle"
-                        Grid.Column="2"
-                        Text="The Trainz"
-                        TextColor="White"
-                        FontFamily="SpotifyFontMedium" />
-
-                    <Frame
-                        Grid.Column="3"
-                        Padding="5"
-                        VerticalOptions="Center"
-                        HorizontalOptions="Center"
-                        BackgroundColor="#50b3b3b3"
-                        CornerRadius="2"
-                        HasShadow="False">
-                        <Label
-                            Text="FOLLOW"
-                            FontSize="10"
-                            TextColor="White"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center" />
-                    </Frame>
-
-                    <Image
-                        Grid.Column="4"
-                        Source="more_vertical.png"
-                        HeightRequest="30"
-                        VerticalOptions="Center"/>
-                </Grid>
-            </Grid>
-
-            <!-- Currently playing strip -->
-            <Grid
-                Grid.Row="1"
-                BackgroundColor="#212121"
-                ColumnDefinitions="60,*,30,50">
-                <Image
-                    Grid.Column="0"
-                    Source="nature.jpg"
-                    Aspect="AspectFill"/>
-                <StackLayout
-                    Grid.Column="1"
-                    VerticalOptions="Center"
-                    HorizontalOptions="Start">
-                    <Label>
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span
-                                    Text="The Trainz "
-                                    TextColor="White"
-                                    FontFamily="SpotifyFontBold"
-                                    FontSize="14" />
-                                <Span
-                                    Text=" * Trainz for lajf"
-                                    FontFamily="SpotifyFont"
-                                    TextColor="Gray"
-                                    FontSize="12"/>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                </StackLayout>
-
-                <Image
-                    Grid.Column="2"
-                    Source="favorite_outline.png"
-                    Aspect="AspectFit"
-                    HeightRequest="25"
-                    WidthRequest="25"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center" />
-
-                <Image
-                    Grid.Column="3"
-                    Source="pause.png"
-                    Aspect="AspectFit"
-                    HeightRequest="30"
-                    WidthRequest="30"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center" />
-            </Grid>
-            <BoxView
-                Grid.Row="2"
-                HeightRequest="1"
-                BackgroundColor="Black"
-                HorizontalOptions="Fill"/>
-            <!-- Bottom Nav -->
-            <Grid
-                Grid.Row="3"
-                BackgroundColor="#212121">
-
-            </Grid>
+          x:Name="FadedLayer"
+          Grid.Row="0"
+          Grid.RowSpan="2"
+          HorizontalOptions="Fill"
+          VerticalOptions="Fill">
+          <Grid.Background>
+            <LinearGradientBrush
+              StartPoint="0,0"
+              EndPoint="0,1">
+              <GradientStop
+                Color="#30121212"
+                Offset="0.0"/>
+              <GradientStop
+                Color="#FF121212"
+                Offset=".9" />
+            </LinearGradientBrush>
+          </Grid.Background>
         </Grid>
-    </ContentPage.Content>
+        <!-- Header and listerners count -->
+        <StackLayout
+          Grid.Row="1"
+          VerticalOptions="End"
+          TranslationY="-25"
+          x:Name="ArtistInfoContainer">
+          <!-- Artist Title -->
+          <Label
+            Text="The Trainz"
+            TextColor="White"
+            FontFamily="SpotifyFontBold"
+            FontSize="45"
+            HorizontalOptions="Center"/>
+          <!-- Monthly listeners  -->
+          <Label
+            Text="23,500,245 MONTHLY LISTENERS"
+            TextColor="{StaticResource LightGray}"
+            FontSize="12"
+            Margin="10,10,10,20"
+            HorizontalOptions="Center"/>
+        </StackLayout>
+        <!-- Main Scroll View -->
+        <ScrollView
+          Grid.Row="1"
+          Grid.RowSpan="2"
+          x:Name="MainScrollView"
+          BackgroundColor="Transparent"
+          Scrolled="OnMainScrollViewScrolled">
+          <StackLayout
+            Spacing="0">
+            <BoxView
+                x:Name="ScrollViewMarginView"
+                HorizontalOptions="Fill"
+                BackgroundColor="Transparent" />
+            <Grid
+              BackgroundColor="#121212">
+              <StackLayout
+                Padding="0,25,0,0">
+                <!-- Popular label-->
+                <Label
+                  Text="Popular"
+                  TextColor="White"
+                  FontSize="18"
+                  FontFamily="SpotifyFontMedium"
+                  VerticalOptions="Center"
+                  HorizontalOptions="Center"
+                  Margin="10" />
+                <!-- Popular songs List -->
+                <StackLayout
+                  BindableLayout.ItemsSource="{Binding PopularSongs}"
+                  HorizontalOptions="Fill">
+                  <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                      <Grid
+                        ColumnDefinitions="*,50"
+                        Padding="5">
+                        <custom:TouchReactiveGrid
+                          Grid.Column="0"
+                          ColumnDefinitions="30,50,*"
+                          ColumnSpacing="10"
+                          Command="{Binding BindingContext.PlaySongCommand,
+                                        Source={RelativeSource AncestorType={x:Type views:SpotifyDemo}}}"
+                          CommandParameter="{Binding .}">
+                          <!-- Popularity rank -->
+                          <Label
+                            Grid.Column="0"
+                            Text="{Binding PopularityRank}"
+                            TextColor="{StaticResource LightGray}"/>
+                          <!-- Album cover -->
+                          <Image
+                            Grid.Column="1"
+                            Source="{Binding AlbumCover}"
+                            Aspect="AspectFill"
+                            HeightRequest="50" />
+                          <!-- Title and listener count -->
+                          <StackLayout
+                            Grid.Column="2"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Fill"
+                            Spacing="0">
+                            <Label
+                              Text="{Binding Title}"
+                              TextColor="White"
+                              FontSize="15"
+                              HorizontalOptions="Start"/>
+                            <Label
+                              Text="{Binding Plays}"
+                              TextColor="{StaticResource LightGray}"
+                              FontSize="13"
+                              HorizontalOptions="Start"/>
+                          </StackLayout>
+                        </custom:TouchReactiveGrid>
+                        <!-- expand icon-->
+                        <Image
+                          Grid.Column="1"
+                          Source="more_vertical.png"
+                          HeightRequest="25"
+                          WidthRequest="25"
+                          HorizontalOptions="Center"
+                          VerticalOptions="Center"/>
+                      </Grid>
+                    </DataTemplate>
+                  </BindableLayout.ItemTemplate>
+                </StackLayout>
+                <!-- Popular releases label -->
+                <Label
+                  Text="Popular releases"
+                  TextColor="White"
+                  FontSize="18"
+                  FontFamily="SpotifyFontMedium"
+                  VerticalOptions="Center"
+                  HorizontalOptions="Center"
+                  Margin="20,30,20,0" />
+
+                <StackLayout
+                  BindableLayout.ItemsSource="{Binding PopularAlbums}"
+                  Padding="10">
+                  <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                      <custom:TouchReactiveGrid
+                        RowDefinitions="100"
+                        ColumnDefinitions="100,*">
+                        <Image
+                          Grid.Column="0"
+                          HeightRequest="90"
+                          WidthRequest="90"
+                          Aspect="AspectFill"
+                          HorizontalOptions="Center"
+                          VerticalOptions="Center"
+                          Source="{Binding AlbumCover}" />
+                        <StackLayout
+                          Grid.Column="1"
+                          VerticalOptions="Center"
+                          HorizontalOptions="Start"
+                          Spacing="0">
+                          <Label
+                            Text="{Binding AlbumName}"
+                            TextColor="White"
+                            FontSize="17"
+                            FontFamily="SpotifyFont"
+                            HorizontalOptions="Start" />
+                          <Label>
+                            <Label.FormattedText>
+                              <FormattedString>
+                                <Span
+                                  Text="{Binding ReleaseYear}"
+                                  TextColor="{StaticResource LightGray}"
+                                  FontSize="12"
+                                  FontFamily="SpotifyFont" />
+                                <Span
+                                  Text=" - Album"
+                                  TextColor="{StaticResource LightGray}"
+                                  FontSize="12"
+                                  FontFamily="SpotifyFont" />
+                              </FormattedString>
+                            </Label.FormattedText>
+                          </Label>
+                        </StackLayout>
+                      </custom:TouchReactiveGrid>
+                    </DataTemplate>
+                  </BindableLayout.ItemTemplate>
+                </StackLayout>
+                <!-- Feature artist label -->
+                <Label
+                  Text="Feature The Trainz"
+                  TextColor="White"
+                  FontSize="18"
+                  FontFamily="SpotifyFontMedium"
+                  VerticalOptions="Center"
+                  HorizontalOptions="Center"
+                  Margin="20,30,20,0" />
+                <!-- Featuring albums -->
+                <CollectionView
+                  ItemsSource="{Binding PopularAlbums}"
+                  HorizontalOptions="Fill"
+                  HeightRequest="180">
+                  <CollectionView.ItemsLayout>
+                    <LinearItemsLayout
+                      Orientation="Horizontal">
+                    </LinearItemsLayout>
+                  </CollectionView.ItemsLayout>
+                  <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                      <custom:TouchReactiveGrid
+                        Padding="10"
+                        RowDefinitions="140,Auto">
+                        <Image
+                          Grid.Row="0"
+                          Source="{Binding AlbumCover}"
+                          Aspect="AspectFill"
+                          VerticalOptions="Center"
+                          HorizontalOptions="Center"
+                          HeightRequest="140"
+                          WidthRequest="140"/>
+                        <Label
+                          Grid.Row="1"
+                          Text="Playlist Name"
+                          TextColor="White"
+                          FontSize="12"
+                          HorizontalOptions="Center"
+                          Margin="20,0,20,0"/>
+                      </custom:TouchReactiveGrid>
+                    </DataTemplate>
+                  </CollectionView.ItemTemplate>
+                </CollectionView>
+              </StackLayout>
+              <!-- Shuffle button, only show when not scrolling-->    
+              <custom:TouchReactiveFrame
+                IsVisible="{Binding ShowTempShuffleBtn,
+                            Source={RelativeSource AncestorType={x:Type views:SpotifyDemo}},
+                            Converter={StaticResource Inverter}}"
+                HasShadow="False"
+                Padding="0"
+                HeightRequest="50"
+                WidthRequest="200"
+                CornerRadius="25"
+                BackgroundColor="{StaticResource Green}"
+                HorizontalOptions="Center"
+                VerticalOptions="Start"
+                TranslationY="-25"
+                Command="{Binding ShufflePlayCommand}">
+                <Label
+                  Text="SHUFFLE PLAY"
+                  TextColor="White"
+                  FontFamily="SpotifyFontBold"
+                  HorizontalOptions="Center"
+                  VerticalOptions="Center"
+                  HorizontalTextAlignment="Center"
+                  VerticalTextAlignment="Center" />
+              </custom:TouchReactiveFrame>
+            </Grid>
+          </StackLayout>
+        </ScrollView>
+        <!-- Shuffle button when scrolled-->
+        <custom:TouchReactiveFrame
+          IsVisible="{Binding ShowTempShuffleBtn, Source={RelativeSource AncestorType={x:Type views:SpotifyDemo}}}"
+          Grid.Row="1"
+          HasShadow="False"
+          Padding="0"
+          HeightRequest="50"
+          WidthRequest="200"
+          CornerRadius="25"
+          BackgroundColor="{StaticResource Green}"
+          HorizontalOptions="Center"
+          VerticalOptions="Start"
+          Command="{Binding ShufflePlayCommand}">
+          <Label
+            Text="SHUFFLE PLAY"
+            TextColor="White"
+            FontFamily="SpotifyFontBold"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            HorizontalTextAlignment="Center"
+            VerticalTextAlignment="Center" />
+        </custom:TouchReactiveFrame>
+        <!-- Top navigation -->
+        <Grid
+          x:Name="TopNavigation"
+          Grid.Row="0"
+          VerticalOptions="Fill"
+          HorizontalOptions="Fill"
+          RowSpacing="0"
+          BackgroundColor="Transparent"
+          ColumnDefinitions="30,80,*,80,30">
+          <!-- Back button icon -->
+          <Image
+            Grid.Column="0"
+            Source="back_arrow.png"
+            HeightRequest="30"
+            Margin="5"
+            VerticalOptions="Center"/>
+          <!-- Artist title, only show when other is hidden by scroll (handled in code-behind) -->
+          <Label
+            x:Name="TempArtistTitle"
+            Grid.Column="2"
+            Text="The Trainz"
+            TextColor="White"
+            FontSize="17"
+            FontFamily="SpotifyFontMedium" />
+          <!-- Follow button -->
+          <Frame
+            Grid.Column="3"
+            Padding="5"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            BackgroundColor="#50b3b3b3"
+            CornerRadius="2"
+            HasShadow="False">
+            <Label
+              Text="FOLLOW"
+              FontSize="10"
+              TextColor="White"
+              HorizontalOptions="Center"
+              VerticalOptions="Center" />
+          </Frame>
+          <!-- expand icon -->
+          <Image
+            Grid.Column="4"
+            Source="more_vertical.png"
+            HeightRequest="30"
+            VerticalOptions="Center"/>
+        </Grid>
+      </Grid>
+      <!-- ProgressBar -->
+      <BoxView
+        Grid.Row="1"
+        HorizontalOptions="Fill"
+        VerticalOptions="Fill"
+        BackgroundColor="{StaticResource Gray}" />
+      <ProgressBar
+        Grid.Row="1"
+        HorizontalOptions="Fill"
+        VerticalOptions="Fill"
+        Progress="{Binding CurrentlyPlayingProgress}"
+        ProgressColor="White" />
+
+      <!-- Currently playing strip -->
+      <Grid
+        Grid.Row="2"
+        BackgroundColor="#212121"
+        ColumnDefinitions="60,*,30,50">
+        <!-- Album image-->
+        <Image
+          Grid.Column="0"
+          Source="{Binding CurrentlyPlaying.Song.AlbumCover}"
+          Aspect="AspectFill"/>
+        <!-- Middle section, artist song name and devices -->
+        <StackLayout
+          Grid.Column="1"
+          VerticalOptions="Center"
+          HorizontalOptions="Start">
+          <Label>
+            <Label.FormattedText>
+              <FormattedString>
+                <Span
+                  Text="{Binding CurrentlyPlaying.Song.Artist}"
+                  TextColor="White"
+                  FontFamily="SpotifyFontBold"
+                  FontSize="12" />
+                <Span
+                  Text="{Binding CurrentlyPlaying.Song.Title, StringFormat=' - {0}'}"
+                  FontFamily="SpotifyFont"
+                  TextColor="Gray"
+                  FontSize="12"/>
+              </FormattedString>
+            </Label.FormattedText>
+          </Label>
+        </StackLayout>
+        <!-- Favorite song toggle icon -->
+        <Image
+          Grid.Column="2"
+          Source="favorite_outline.png"
+          Aspect="AspectFit"
+          HeightRequest="25"
+          WidthRequest="25"
+          HorizontalOptions="Center"
+          VerticalOptions="Center" />
+        <!-- pause/play icon -->
+        <Image
+          Grid.Column="3"
+          Source="pause.png"
+          Aspect="AspectFit"
+          HeightRequest="30"
+          WidthRequest="30"
+          HorizontalOptions="Center"
+          VerticalOptions="Center">
+          <Image.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding ToggleIsPlayingCommand}" />
+          </Image.GestureRecognizers>
+          <Image.Triggers>
+            <DataTrigger TargetType="Image" Binding="{Binding CurrentlyPlaying.IsPlaying}" Value="False">
+              <Setter Property="Source" Value="play.png" />
+            </DataTrigger>
+          </Image.Triggers>
+        </Image>
+      </Grid>
+      <!-- Content separator -->
+      <BoxView
+        Grid.Row="3"
+        HeightRequest="1"
+        BackgroundColor="Black"
+        HorizontalOptions="Fill"/>
+      <!-- Bottom Nav -->
+      <Grid
+        Grid.Row="4"
+        BackgroundColor="#212121"
+        ColumnDefinitions="*,*,*"
+        Padding="5">
+        <Grid
+          Grid.Column="0"
+          RowDefinitions="*,Auto">
+          <Image
+            Grid.Row="0"
+            Source="home.png"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            Aspect="AspectFit"/>
+          <Label
+            Grid.Row="1"
+            Text="Home"
+            TextColor="{StaticResource LightGray}"
+            FontSize="10"/>
+        </Grid>
+        <Grid
+          Grid.Column="1"
+          RowDefinitions="*,Auto">
+          <Image
+            Grid.Row="0"
+            Source="search.png"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            Aspect="AspectFit"/>
+          <Label
+            Grid.Row="1"
+            Text="Search"
+            TextColor="White"
+            FontSize="10"/>
+        </Grid>
+        <Grid
+          Grid.Column="2"
+          RowDefinitions="*,Auto">
+        </Grid>
+      </Grid>
+    </Grid>
+  </ContentPage.Content>
 </ContentPage>
