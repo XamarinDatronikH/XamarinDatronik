@@ -17,10 +17,7 @@ namespace XamarinDatronik.Views
 
         #region CONSTRUCTOR
 
-        public SpotifyDemo()
-        {
-            InitializeComponent();
-        }
+        public SpotifyDemo() => InitializeComponent();
 
         #endregion
 
@@ -29,14 +26,32 @@ namespace XamarinDatronik.Views
         public bool ShowTempShuffleBtn
         {
             get => (bool)GetValue(ShowTempShuffleBtnProperty);
-            set => SetValue(ShowTempShuffleBtnProperty, value);
+            private set => SetValue(ShowTempShuffleBtnProperty, value);
         }
 
         #endregion
 
         #region METHODS
 
-        void Grid_SizeChanged(System.Object sender, System.EventArgs e) =>
+        void OnCurrentlyPlayingTitleSizeChanged(object sender, EventArgs e)
+        {
+            if (CurrentlyPlayingTitle.Width > 0)
+                InitAnimation();
+        }
+
+        private void InitAnimation()
+        {
+            var translationXMin = (CurrentlyPlayingTitle.Width - CurrentlyPlayingTitleSecondLabel.Width - 10) * -1;
+
+            var animation = new Animation
+            {
+                { 0, .95, new Animation(v => CurrentlyPlayingTitle.TranslationX = v, 10, translationXMin) }
+            };
+
+            animation.Commit(this, "TitleSlide", length: 10000, repeat: () => true);
+        }
+
+        void Grid_SizeChanged(object sender, EventArgs e) =>
             ScrollViewMarginView.HeightRequest = (TopContainer.Height / 2) - TopNavigation.Height - 2;
 
         void OnMainScrollViewScrolled(object sender, ScrolledEventArgs e)
@@ -44,13 +59,21 @@ namespace XamarinDatronik.Views
             var threshold = ScrollViewMarginView.Height - 25;
 
             if(e.ScrollY >= threshold)
+            {
                 ShowTempShuffleBtn = true;
+                TopNavigationBackground.Opacity = 0;
+                TopNavigationBackBackground.Opacity = 1;
+                TempArtistTitle.Opacity = 1;
+            }
             else
             {
-                FadedLayer.TranslationY = -(e.ScrollY);
-                var multiplier = 0.2 / threshold;
-
                 ShowTempShuffleBtn = false;
+
+                TopNavigationBackBackground.Opacity = 0;
+
+                FadedLayer.TranslationY = -(e.ScrollY);
+
+                var multiplier = 0.2 / threshold;
 
                 var artistInfoY = ArtistInfoContainer.Y - ArtistInfoContainer.Height;
 
@@ -59,12 +82,17 @@ namespace XamarinDatronik.Views
                 ArtistImage.Scale = 1.2 - multiplier * e.ScrollY;
 
                 if (e.ScrollY >= artistInfoY)
+                {
                     TempArtistTitle.Opacity = Math.Min((e.ScrollY - spaceBetween) / spaceBetween, 1);
+                    TopNavigationBackground.Opacity = Math.Min((e.ScrollY - spaceBetween) / spaceBetween, 1);
+                }
                 else
+                {
                     TempArtistTitle.Opacity = 0;
+                    TopNavigationBackground.Opacity = 0;
+                }
             }
         }
-
         #endregion
     }
 }

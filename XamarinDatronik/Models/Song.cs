@@ -7,7 +7,13 @@ namespace XamarinDatronik.Models
     {
         private bool _isFavorite;
 
-        public string Title { get; set; }
+        private string _title;
+
+        public string Title
+        {
+            get => _title;
+            set => SetProperty(ref _title, value);
+        }
 
         public string Plays { get; set; }
 

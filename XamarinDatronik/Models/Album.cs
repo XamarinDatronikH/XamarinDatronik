@@ -8,5 +8,7 @@ namespace XamarinDatronik.Models
         public string AlbumName { get; set; }
 
         public string AlbumCover { get; set; }
+
+        public string PlaylistName { get; set; }
     }
 }

@@ -33,8 +33,8 @@ namespace XamarinDatronik.Droid.Renderers
             switch (e.Event.Action)
             {
                 case MotionEventActions.Down:
-                    _xamarinGrid.Opacity = 0.8;
-                    _xamarinGrid.Scale = 0.98;
+                    _xamarinGrid.Opacity = 0.6;
+                    _xamarinGrid.Scale = 0.97;
                     break;
                 case MotionEventActions.Up:
                     _xamarinGrid.Opacity = 1;

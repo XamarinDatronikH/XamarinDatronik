@@ -18,6 +18,7 @@
       <Setter Property="VerticalOptions" Value="Center" />
       <Setter Property="VerticalTextAlignment" Value="Center" />
       <Setter Property="HorizontalTextAlignment" Value="Center" />
+      <Setter Property="LineBreakMode" Value="TailTruncation" />
     </Style>
 
     <Color x:Key="Green">#1db954</Color>
@@ -30,8 +31,9 @@
   </ContentPage.Resources>
   <ContentPage.Content>
     <Grid
-      RowDefinitions="*,2,60,2,55"
-      RowSpacing="0">
+      RowDefinitions="*,2,60,1,55"
+      RowSpacing="0"
+      Padding="0,20,0,0">
       <!-- Top container -->
       <Grid
         Grid.Row="0"
@@ -63,6 +65,7 @@
                 Color="#30121212"
                 Offset="0.0"/>
               <GradientStop
+                x:Name="FadedLayerBlackGradientStop"
                 Color="#FF121212"
                 Offset=".9" />
             </LinearGradientBrush>
@@ -152,7 +155,19 @@
                               Text="{Binding Title}"
                               TextColor="White"
                               FontSize="15"
-                              HorizontalOptions="Start"/>
+                              HorizontalOptions="Start"> 
+                              <Label.Triggers>
+                                <DataTrigger
+                                  Binding="{Binding BindingContext.CurrentlyPlaying.Song.Title,
+                                            Source={RelativeSource AncestorType={x:Type views:SpotifyDemo}}}"
+                                  Value="{Binding Title}"
+                                  TargetType="Label">
+                                  <Setter
+                                    Property="TextColor"
+                                    Value="{StaticResource Green}" />
+                                </DataTrigger>
+                              </Label.Triggers>
+                            </Label>
                             <Label
                               Text="{Binding Plays}"
                               TextColor="{StaticResource LightGray}"
@@ -209,7 +224,10 @@
                             FontSize="17"
                             FontFamily="SpotifyFont"
                             HorizontalOptions="Start" />
-                          <Label>
+                          <Label
+                            HorizontalOptions="Start"
+                            HorizontalTextAlignment="Start"
+                            LineBreakMode="TailTruncation">
                             <Label.FormattedText>
                               <FormattedString>
                                 <Span
@@ -218,7 +236,12 @@
                                   FontSize="12"
                                   FontFamily="SpotifyFont" />
                                 <Span
-                                  Text=" - Album"
+                                  Text=" · "
+                                  TextColor="{StaticResource LightGray}"
+                                  FontSize="12"
+                                  FontFamily="SpotifyFont" />
+                                <Span
+                                  Text="Album"
                                   TextColor="{StaticResource LightGray}"
                                   FontSize="12"
                                   FontFamily="SpotifyFont" />
@@ -232,7 +255,7 @@
                 </StackLayout>
                 <!-- Feature artist label -->
                 <Label
-                  Text="Feature The Trainz"
+                  Text="Featuring The Trainz"
                   TextColor="White"
                   FontSize="18"
                   FontFamily="SpotifyFontMedium"
@@ -282,7 +305,7 @@
                 HasShadow="False"
                 Padding="0"
                 HeightRequest="50"
-                WidthRequest="200"
+                WidthRequest="250"
                 CornerRadius="25"
                 BackgroundColor="{StaticResource Green}"
                 HorizontalOptions="Center"
@@ -308,7 +331,7 @@
           HasShadow="False"
           Padding="0"
           HeightRequest="50"
-          WidthRequest="200"
+          WidthRequest="250"
           CornerRadius="25"
           BackgroundColor="{StaticResource Green}"
           HorizontalOptions="Center"
@@ -332,6 +355,32 @@
           RowSpacing="0"
           BackgroundColor="Transparent"
           ColumnDefinitions="30,80,*,80,30">
+          <!-- Back Background Color -->
+          <BoxView
+            x:Name="TopNavigationBackBackground"
+            Grid.Column="0"
+            Grid.ColumnSpan="5"
+            BackgroundColor="{StaticResource Black}"
+            Opacity="0" />
+          <!-- BackgroundColor -->
+          <BoxView
+            x:Name="TopNavigationBackground"
+            Grid.Column="0"
+            Grid.ColumnSpan="5"
+            Opacity="0">
+            <BoxView.Background>
+              <LinearGradientBrush
+                StartPoint="0,0"
+                EndPoint="0,1">
+                <GradientStop
+                  Color="#FF121212"
+                  Offset=".9" />
+                <GradientStop
+                  Color="#30121212"
+                  Offset="0.3"/>
+              </LinearGradientBrush>
+            </BoxView.Background>
+          </BoxView>
           <!-- Back button icon -->
           <Image
             Grid.Column="0"
@@ -346,6 +395,7 @@
             Text="The Trainz"
             TextColor="White"
             FontSize="17"
+            Opacity="0"
             FontFamily="SpotifyFontMedium" />
           <!-- Follow button -->
           <Frame
@@ -383,39 +433,134 @@
         VerticalOptions="Fill"
         Progress="{Binding CurrentlyPlayingProgress}"
         ProgressColor="White" />
-
       <!-- Currently playing strip -->
       <Grid
         Grid.Row="2"
-        BackgroundColor="#212121"
-        ColumnDefinitions="60,*,30,50">
+        BackgroundColor="{StaticResource DarkGray}"
+        ColumnDefinitions="60,*,30,50"
+        ColumnSpacing="0">
+        
+        <!-- Middle section, artist song name and devices -->
+        <ScrollView
+          Grid.Column="1"
+          VerticalOptions="Fill"
+          HorizontalOptions="Fill"
+          Orientation="Horizontal"
+          IsEnabled="False"
+          HorizontalScrollBarVisibility="Never">
+          <StackLayout
+            x:Name="CurrentlyPlayingTitle"
+            Orientation="Horizontal"
+            Spacing="50"
+            SizeChanged="OnCurrentlyPlayingTitleSizeChanged"
+            TranslationX="10">
+            <Label
+              VerticalOptions="Center"
+              HorizontalOptions="Start"
+              Text="{Binding CurrentlyPlaying.Song.Title}"
+              TextColor="White"
+              FontFamily="SpotifyFontMedium"
+              FontSize="12"
+              LineBreakMode="NoWrap">
+              <Label.FormattedText>
+                <FormattedString>
+                  <Span
+                    Text="{Binding CurrentlyPlaying.Song.Title}"
+                    TextColor="White"
+                    FontFamily="SpotifyFontMedium"
+                    FontSize="13" />
+                  <Span
+                    Text=" ･ "
+                    FontFamily="SpotifyFont"
+                    TextColor="{StaticResource LightGray}"
+                    FontSize="13"/>
+                  <Span
+                    Text="{Binding CurrentlyPlaying.Song.Artist}"
+                    FontFamily="SpotifyFont"
+                    TextColor="{StaticResource LightGray}"
+                    FontSize="13"/>
+                </FormattedString>
+              </Label.FormattedText>
+            </Label>
+            <Label
+              x:Name="CurrentlyPlayingTitleSecondLabel"
+              VerticalOptions="Center"
+              HorizontalOptions="Start"
+              Text="{Binding CurrentlyPlaying.Song.Title}"
+              TextColor="White"
+              FontFamily="SpotifyFontMedium"
+              FontSize="12">
+              <Label.FormattedText>
+                <FormattedString>
+                  <Span
+                    Text="{Binding CurrentlyPlaying.Song.Title}"
+                    TextColor="White"
+                    FontFamily="SpotifyFontMedium"
+                    FontSize="13" />
+                  <Span
+                    Text=" ･ "
+                    FontFamily="SpotifyFont"
+                    TextColor="{StaticResource LightGray}"
+                    FontSize="13"/>
+                  <Span
+                    Text="{Binding CurrentlyPlaying.Song.Artist}"
+                    FontFamily="SpotifyFont"
+                    TextColor="{StaticResource LightGray}"
+                    FontSize="13"/>
+                </FormattedString>
+              </Label.FormattedText>
+            </Label>
+          </StackLayout>
+        </ScrollView>
+        
+        <!-- Faded Layer for animation-->
+        <BoxView
+          Grid.Column="1"
+          VerticalOptions="Fill"
+          HorizontalOptions="Start"
+          WidthRequest="25">
+          <BoxView.Background>
+            <LinearGradientBrush
+              StartPoint="0,0"
+              EndPoint="1,0">
+              <GradientStop
+                Color="#FF212121"
+                Offset=".2" />
+              <GradientStop
+                Color="#00212121"
+                Offset="1" />
+            </LinearGradientBrush>
+          </BoxView.Background>
+        </BoxView>
+        <BoxView
+          Grid.Column="1"
+          VerticalOptions="Fill"
+          HorizontalOptions="End"
+          WidthRequest="25">
+          <BoxView.Background>
+            <LinearGradientBrush
+              StartPoint="1,0"
+              EndPoint="0,0">
+              <GradientStop
+                Color="#FF212121"
+                Offset=".2" />
+              <GradientStop
+                Color="#00212121"
+                Offset="1" />
+            </LinearGradientBrush>
+          </BoxView.Background>
+        </BoxView>
         <!-- Album image-->
         <Image
           Grid.Column="0"
           Source="{Binding CurrentlyPlaying.Song.AlbumCover}"
-          Aspect="AspectFill"/>
-        <!-- Middle section, artist song name and devices -->
-        <StackLayout
-          Grid.Column="1"
-          VerticalOptions="Center"
-          HorizontalOptions="Start">
-          <Label>
-            <Label.FormattedText>
-              <FormattedString>
-                <Span
-                  Text="{Binding CurrentlyPlaying.Song.Artist}"
-                  TextColor="White"
-                  FontFamily="SpotifyFontBold"
-                  FontSize="12" />
-                <Span
-                  Text="{Binding CurrentlyPlaying.Song.Title, StringFormat=' - {0}'}"
-                  FontFamily="SpotifyFont"
-                  TextColor="Gray"
-                  FontSize="12"/>
-              </FormattedString>
-            </Label.FormattedText>
-          </Label>
-        </StackLayout>
+          Aspect="AspectFill" />
+        <BoxView
+          Grid.Column="2"
+          Grid.ColumnSpan="2"
+          HorizontalOptions="Fill"
+          VerticalOptions="Fill"
+          BackgroundColor="{StaticResource DarkGray}" />
         <!-- Favorite song toggle icon -->
         <Image
           Grid.Column="2"

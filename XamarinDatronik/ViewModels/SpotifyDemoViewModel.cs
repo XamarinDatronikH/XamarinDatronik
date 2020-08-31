@@ -23,29 +23,13 @@ namespace XamarinDatronik.ViewModels
         {
             InitPopularSongs();
             InitPopularAlbums();
+
             CurrentlyPlaying = new CurrentlyPlayingSong(PopularSongs[0]);
             PlaySongCommand = new Command<Song>(DoPlaySong);
             ShufflePlayCommand = new Command(DoShufflePlay);
             ToggleIsPlayingCommand = new Command(DoToggleIsPlaying);
 
             InitPlayingTimer();
-        }
-
-        private void InitPlayingTimer()
-        {
-            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
-            {
-                if (CurrentlyPlaying.IsPlaying)
-                {
-                    CurrentlyPlaying.TimeElapsed++;
-
-                    if (CurrentlyPlaying.TimeElapsed == CurrentlyPlaying.Song.Length)
-                        DoShufflePlay();
-                    else
-                        CurrentlyPlayingProgress = Math.Min((float)CurrentlyPlaying.TimeElapsed / CurrentlyPlaying.Song.Length, 1);
-                }
-                return true;
-            });
         }
 
         #endregion
@@ -81,16 +65,31 @@ namespace XamarinDatronik.ViewModels
         private void DoToggleIsPlaying() =>
             CurrentlyPlaying.IsPlaying = !CurrentlyPlaying.IsPlaying;
 
-        private void OnCurrentlyPlayingChanged()
-        {
+        private void OnCurrentlyPlayingChanged() =>
             CurrentlyPlaying.IsPlaying = true;
-        }
 
         private void DoShufflePlay() =>
             CurrentlyPlaying = new CurrentlyPlayingSong(PopularSongs[2]);
 
         private void DoPlaySong(Song song) =>
             CurrentlyPlaying = new CurrentlyPlayingSong(song);
+
+        private void InitPlayingTimer()
+        {
+            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+            {
+                if (CurrentlyPlaying.IsPlaying)
+                {
+                    CurrentlyPlaying.TimeElapsed++;
+
+                    if (CurrentlyPlaying.TimeElapsed == CurrentlyPlaying.Song.Length)
+                        DoShufflePlay();
+                    else
+                        CurrentlyPlayingProgress = Math.Min((float)CurrentlyPlaying.TimeElapsed / CurrentlyPlaying.Song.Length, 1);
+                }
+                return true;
+            });
+        }
 
         private void InitPopularAlbums()
         {
@@ -99,25 +98,25 @@ namespace XamarinDatronik.ViewModels
                 new Album
                 {
                     AlbumCover = "train.jpg",
-                    AlbumName = "Album1",
+                    AlbumName = "Trainz forevz",
                     ReleaseYear = 2000
                 },
                 new Album
                 {
                     AlbumCover = "wreck.jpg",
-                    AlbumName = "Album1",
+                    AlbumName = "What now?",
                     ReleaseYear = 2001
                 },
                 new Album
                 {
                     AlbumCover = "sunrise.jpg",
-                    AlbumName = "Album1",
+                    AlbumName = "Thoughtz",
                     ReleaseYear = 2002
                 },
                 new Album
                 {
                     AlbumCover = "station.jpg",
-                    AlbumName = "Album1",
+                    AlbumName = "Unreachable worlds",
                     ReleaseYear = 2002
                 },
             };
@@ -130,7 +129,7 @@ namespace XamarinDatronik.ViewModels
                 new Song
                 {
                     Plays = "167,909,498",
-                    Title = "Me, my rail and I",
+                    Title = "Me, my rail and I - Remastered 2012",
                     AlbumCover = "sunrise.jpg",
                     PopularityRank = 1,
                     Artist = "The Trainz",
@@ -139,7 +138,7 @@ namespace XamarinDatronik.ViewModels
                 new Song
                 {
                     Plays = "112,258,275",
-                    Title = "Trainz for lajf",
+                    Title = "Trainz for lajf - Remastered 2012",
                     AlbumCover = "train.jpg",
                     PopularityRank = 2,
                     Artist = "The Trainz",
@@ -148,7 +147,7 @@ namespace XamarinDatronik.ViewModels
                 new Song
                 {
                     Plays = "173,132,140",
-                    Title = "Right before we met",
+                    Title = "Right before we met - Remastered 2012",
                     AlbumCover = "station.jpg",
                     PopularityRank = 3,
                     Artist = "The Trainz",
@@ -157,7 +156,7 @@ namespace XamarinDatronik.ViewModels
                 new Song
                 {
                     Plays = "87,275,602",
-                    Title = "How to save a train",
+                    Title = "How to save a train - Remastered 2012",
                     AlbumCover = "wreck.jpg",
                     PopularityRank = 4,
                     Artist = "The Trainz",
@@ -166,7 +165,7 @@ namespace XamarinDatronik.ViewModels
                 new Song
                 {
                     Plays = "34,359,140",
-                    Title = "Boatz & Trainz",
+                    Title = "Boatz & Trainz - Remastered 2012",
                     AlbumCover = "train.jpg",
                     PopularityRank = 5,
                     Artist = "The Trainz",

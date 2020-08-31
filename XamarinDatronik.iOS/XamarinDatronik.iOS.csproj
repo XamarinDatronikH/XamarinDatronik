@@ -134,6 +134,16 @@
     <BundleResource Include="Resources\animation_smallest.png" />
     <BundleResource Include="Resources\circular_smallest.png" />
     <BundleResource Include="Resources\network_smallest.png" />
+    <BundleResource Include="Resources\home.png" />
+    <BundleResource Include="Resources\station.jpg" />
+    <BundleResource Include="Resources\sunrise.jpg" />
+    <BundleResource Include="Resources\wreck.jpg" />
+    <BundleResource Include="Resources\pause.png" />
+    <BundleResource Include="Resources\play.png" />
+    <BundleResource Include="Resources\more_vertical.png" />
+    <BundleResource Include="Resources\back_arrow.png" />
+    <BundleResource Include="Resources\search.png" />
+    <BundleResource Include="Resources\favorite_outline.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

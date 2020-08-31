@@ -9,10 +9,16 @@ namespace XamarinDatronik.Models
 
         private bool _isPlaying;
 
+        private Song _song;
+
         public CurrentlyPlayingSong(Song song) =>
             Song = song;
 
-        public Song Song { get; set; }
+        public Song Song
+        {
+            get => _song;
+            set => SetProperty(ref _song, value);
+        }
 
         public bool IsPlaying
         {

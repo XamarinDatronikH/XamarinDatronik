@@ -8,6 +8,7 @@
     xmlns:local="clr-namespace:XamarinDatronik.Views"
     Title="XamarinDatronik"
     x:Class="XamarinDatronik.AppShell"
+    Shell.NavBarIsVisible="False"
     xmlns:views="clr-namespace:XamarinDatronik.Views">
     
     <Shell.Resources>
@@ -28,10 +29,12 @@
         </ResourceDictionary>
     </Shell.Resources>
     <!-- Your Pages -->
-    <TabBar>
-        <Tab Title="Spotify">
-            <ShellContent ContentTemplate="{DataTemplate local:SpotifyBasePage}" />
+    <TabBar
+      NavigationPage.HasNavigationBar="False">
+        <Tab Title="Artist">
+            <ShellContent ContentTemplate="{DataTemplate local:SpotifyDemo}" />
         </Tab>
+      <!--
         <Tab Title="Circular" Icon="circular_smallest.png">
             <ShellContent ContentTemplate="{DataTemplate local:DynamicCircularImageDemo}" />
         </Tab>
@@ -41,5 +44,9 @@
         <Tab Title="Network" Icon="network_smallest.png">
             <ShellContent ContentTemplate="{DataTemplate local:CrossPlatformToastDemo}" />
         </Tab>
+      -->
+      <Tab Title="Scrolling Text">
+        <ShellContent ContentTemplate="{DataTemplate local:ScrollingTextDemo}" />
+      </Tab>
     </TabBar>
 </Shell>
