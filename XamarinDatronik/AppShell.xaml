@@ -38,5 +38,8 @@
         <Tab Title="Network" Icon="network_smallest.png">
             <ShellContent ContentTemplate="{DataTemplate local:CrossPlatformToastDemo}" />
         </Tab>
+        <Tab Title="Twitch">
+            <ShellContent ContentTemplate="{DataTemplate local:TwitchDemo}" />
+        </Tab>
     </TabBar>
 </Shell>

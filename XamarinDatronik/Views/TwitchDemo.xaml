@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="XamarinDatronik.Views.TwitchDemo"
+    xmlns:vm="clr-namespace:XamarinDatronik.ViewModels">
+    <ContentPage.BindingContext>
+        <vm:TwitchDemoViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid
+            RowDefinitions="50,*,60"
+            RowSpacing="0">
+            <!-- Top navigation -->
+            <Grid
+                Grid.Row="0"
+                ColumnDefinitions="*,50,50,50"
+                ColumnSpacing="0">
+                <Image
+                    Grid.Column="0"
+                    Source="circular.png"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"
+                    HeightRequest="40"
+                    WidthRequest="40" />
+
+                <Image
+                    Grid.Column="1"
+                    Source="animation.png"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    HeightRequest="40"
+                    WidthRequest="40" />
+
+                <Image
+                    Grid.Column="2"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center" 
+                    HeightRequest="40"
+                    WidthRequest="40" />
+
+                <Image
+                    Grid.Column="3"
+                    Source="network.png"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    HeightRequest="40"
+                    WidthRequest="40" />
+            </Grid>
+
+            <!-- Main content-->
+            <Grid
+                Grid.Row="1"
+                RowDefinitions="80,30,*"
+                RowSpacing="0">
+                <!-- Title -->
+                <Label
+                    Grid.Row="0"
+                    Text="Browse"
+                    FontSize="Title"
+                    VerticalOptions="Center"
+                    Margin="10" />
+
+                <Grid
+                    Grid.Row="1"
+                    RowDefinitions="*,2"
+                    ColumnDefinitions="100,100,*"
+                    ColumnSpacing="10">
+
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Text="Categories"
+                        TextColor="Purple" />
+
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Text="Live Channels" />
+
+                    <BoxView
+                        x:Name="TabIndicator"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="Fill"
+                        BackgroundColor="Purple" />
+                </Grid>
+
+                <!-- ScrollView Container -->
+                <ScrollView
+                    Grid.Row="2"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill"
+                    Orientation="Horizontal"
+                    HorizontalScrollBarVisibility="Never"
+                    SizeChanged="ScrollViewSizeChanged"
+                    Scrolled="ScrollViewScrolled">
+                    <StackLayout
+                        Spacing="0"
+                        Orientation="Horizontal">
+
+                        <RefreshView
+                            x:Name="InitialListContent"
+                            VerticalOptions="Fill"
+                            IsRefreshing="{Binding IsRefreshingCategories}">
+                            <!-- Set CollectionView visibility to IsRefreshingCategories with InverterConverter!-->
+                            <CollectionView
+                                BackgroundColor="AliceBlue"
+                                HorizontalOptions="Fill"
+                                VerticalOptions="Fill"
+                                ItemsSource="{Binding Categories}">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid
+                                            Padding="10">
+                                            <BoxView
+                                                HorizontalOptions="Fill"
+                                                VerticalOptions="Fill"
+                                                BackgroundColor="Aquamarine"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </RefreshView>
+
+                        <RefreshView
+                            x:Name="HiddenListContent"
+                            VerticalOptions="Fill">
+                            <CollectionView
+                                BackgroundColor="Gold"
+                                HorizontalOptions="Fill"
+                                VerticalOptions="Fill">
+                            </CollectionView>
+                        </RefreshView>
+                    </StackLayout>
+                </ScrollView>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
