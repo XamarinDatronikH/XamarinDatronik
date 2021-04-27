@@ -8,8 +8,7 @@
         <ResourceDictionary>
             <ControlTemplate x:Key="ResizableContainerControlTemplate">
                 <Grid
-                    Padding="5"
-                    RowDefinitions="*,Auto">
+                    RowDefinitions="*">
                     <Frame
                         x:Name="ContentContainer"
                         HorizontalOptions="Fill"
@@ -25,7 +24,11 @@
                     </Frame>
 
                     <Grid
-                        Grid.Row="1"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="End"
+                        Grid.Row="0"
+                        Padding="10"
+                        BackgroundColor="#4effffff"
                         RowDefinitions="*,*"
                         ColumnDefinitions="Auto,*">
                         <Label
@@ -36,7 +39,9 @@
                             Grid.Row="0"
                             Grid.Column="1"
                             x:Name="WidthSlider"
-                            ValueChanged="SliderChanged" />
+                            ValueChanged="SliderChanged"
+                            Maximum="100"
+                            Minimum="0"/>
 
                         <Label
                             Grid.Row="1"
@@ -46,7 +51,9 @@
                             Grid.Row="1"
                             Grid.Column="1"
                             x:Name="HeightSlider"
-                            ValueChanged="SliderChanged" />
+                            ValueChanged="SliderChanged"
+                            Maximum="100"
+                            Minimum="0"/>
                     </Grid>
                 </Grid>
             </ControlTemplate>

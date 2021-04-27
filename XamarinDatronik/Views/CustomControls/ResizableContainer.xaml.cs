@@ -14,13 +14,15 @@ namespace XamarinDatronik.Views.CustomControls
 
         private const string HeightSliderName = "HeightSlider";
 
-        private ContentPresenter _contentPresenter;
+        private const string ContentPresenterName = "Content";
 
         private Slider _widthSlider;
 
         private Slider _heightSlider;
 
         private Frame _contentContainer;
+
+        private ContentPresenter _contentPresenter;
 
         #endregion
 
@@ -46,18 +48,18 @@ namespace XamarinDatronik.Views.CustomControls
             if(_contentContainer == null)
             {
                 _contentContainer = GetTemplateChild(ContentName) as Frame;
-
                 _widthSlider = GetTemplateChild(WidthSliderName) as Slider;
-                _widthSlider.Maximum = Width / 2;
-                _widthSlider.Minimum = 5;
-
                 _heightSlider = GetTemplateChild(HeightSliderName) as Slider;
-                _heightSlider.Maximum = Height / 2;
-                _heightSlider.Minimum = 5;
+                _contentPresenter = GetTemplateChild(ContentPresenterName) as ContentPresenter;
             }
 
-            if (_contentContainer != null)
-                _contentContainer.Margin = new Thickness(_widthSlider.Value, _heightSlider.Value);
+            if (_contentContainer != null && (_widthSlider ?? _heightSlider) != null)
+            {
+                var verticalMargin = (_contentContainer.Height / 2) * (_heightSlider.Value / 100);
+                var horizontalMargin = (_contentContainer.Width / 2) * (_widthSlider.Value / 100);
+
+                _contentPresenter.Margin = new Thickness(horizontalMargin, verticalMargin);
+            }
         }
 
         #endregion
